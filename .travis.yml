@@ -29,6 +29,7 @@ env:
     - MAKEFLAGS="-j 4"
 
 script:
+  - make -C src bin-x86_64-linux/tests.linux
   - make -C src bin-i386-pcbios/undionly.kpxe
   - make -C src bin-x86_64-efi/ipxe.efi
   - ./src/bin-x86_64-linux/tests.linux
