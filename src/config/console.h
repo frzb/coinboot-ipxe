@@ -36,7 +36,7 @@ FILE_LICENCE ( GPL2_OR_LATER_OR_UBDL );
 
 //#define	CONSOLE_SERIAL		/* Serial port console */
 //#define	CONSOLE_FRAMEBUFFER	/* Graphical framebuffer console */
-//#define	CONSOLE_SYSLOG		/* Syslog console */
+#define	CONSOLE_SYSLOG		/* Syslog console */
 //#define	CONSOLE_SYSLOGS		/* Encrypted syslog console */
 //#define	CONSOLE_VMWARE		/* VMware logfile console */
 //#define	CONSOLE_DEBUGCON	/* Bochs/QEMU/KVM debug port console */
@@ -59,7 +59,7 @@ FILE_LICENCE ( GPL2_OR_LATER_OR_UBDL );
  *
  * Note that this is not related in any way to CONSOLE_SYSLOG.
  */
-#define	LOG_LEVEL	LOG_NONE
+#define	LOG_LEVEL	LOG_ALL
 
 #include <config/named.h>
 #include NAMED_CONFIG(console.h)
