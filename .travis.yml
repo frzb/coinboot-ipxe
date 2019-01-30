@@ -34,7 +34,7 @@ script:
   - make -C src bin-x86_64-efi/ipxe.efi
   - ./src/bin-x86_64-linux/tests.linux
 
-after_success:
+before_deploy:
 - git config --global user.email "build@travis-ci.com"
 - git config --global user.name "Travis CI"
 - git tag -a "$(date +'%Y%m%d')" -m 'Automatic release by Travis CI'
@@ -45,8 +45,8 @@ deploy:
   provider: releases
   api_key: ${TOKEN}
   file:
-    - ./bin-x86_64-efi/ipxe.efi
-    - ./bin-i386-pcbios/undionly.kpxe
+    -  "src/bin-x86_64-efi/ipxe.efi"
+    -  "src/bin-i386-pcbios/undionly.kpxe"
   skip_cleanup: true
   on:
     repo: frzb/coinboot-ipxe
