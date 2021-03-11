@@ -3,7 +3,7 @@
 This is a customised fork of iPXE for Coinboot.  
 They only change is that remote syslog logging is activated.
 
-This is done via these changes at `config/config.h`:
+This is done via these changes at `src/config/console.h`:
 
 ## Enable syslog console output
 
