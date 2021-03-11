@@ -1,0 +1,50 @@
+dist: xenial
+
+sudo: false
+
+language: c
+
+cache: ccache
+
+compiler:
+  - gcc
+
+addons:
+  apt:
+    packages:
+      - binutils-dev
+      - liblzma-dev
+      - syslinux
+      - genisoimage
+  coverity_scan:
+    project:
+      name: "ipxe/ipxe"
+      version: $TRAVIS_COMMIT
+    build_command_prepend: "make -C src bin/deps"
+    build_command: "make -C src bin/blib.a"
+    branch_pattern: coverity_scan
+
+env:
+  global:
+    - MAKEFLAGS="-j 4"
+
+script:
+  - make -C src bin-x86_64-linux/tests.linux
+  - make -C src bin-i386-pcbios/undionly.kpxe
+  - make -C src bin-x86_64-efi/ipxe.efi
+  - ./src/bin-x86_64-linux/tests.linux
+
+before_deploy:
+- git config --global user.email "build@travis-ci.com"
+- git config --global user.name "Travis CI"
+- git tag -a "$(date +'%Y%m%d')" -m 'Automatic release by Travis CI'
+deploy:
+  provider: releases
+  api_key: ${TOKEN}
+  file:
+    -  "src/bin-x86_64-efi/ipxe.efi"
+    -  "src/bin-i386-pcbios/undionly.kpxe"
+  skip_cleanup: true
+  on:
+    repo: frzb/coinboot-ipxe
+    branch: master
